@@ -45,4 +45,66 @@ y
 
 
 
+### Summarizing data
+
+## Example data set: https://data.baltimorecity.gov/Community/Restaurants/k5ry-ef3g
+
+## Getting data from the web
+if(!file.exists("./data")) {dir.create("./data")}
+fileUrl <- "https://data.baltimorecity.gov/api/views/k5ry-ef3g/rows.csv?accessType=DOWNLOAD"
+download.file(fileUrl, destfile = "./data/restaurants.csv", method = "curl")
+restData <- read.csv("./data/restaurants.csv")
+
+## Look at a bit of the data
+head(restData)
+tail(restData, n = 3)
+
+## Make summary
+summary(restData)
+
+## More in depth information
+str (restData)
+
+## Quantiles or percentiles of quantitative variables
+quantile(restData$councilDistrict, na.rm = TRUE)
+quantile(restData$councilDistrict, probs = c(0.5, 0.75, 0.9), na.rm = TRUE)
+
+## Make Table
+table(restData$zipCode, useNA = "ifany") # make sure to use 'useNa="ifany"'!!!
+table(restData$councilDistrict, restData$zipCode)
+
+## Check for missing values
+sum(is.na(restData$councilDistrict))  # returns number of missing values
+any(is.na(restData$councilDistrict))  # returns TRUE if any value is NA
+all(restData$zipCode > 0)             # returns TRUE if all values pass logical test
+
+## Row and column sums
+colSums(is.na(restData))
+
+## [[MY CODE]] TO SHRINK UPDATED DATA TABLE TO ORIGINAL SIZE IN LECUTRE
+restData <- restData[,1:6]
+head(restData,3)
+
+## Values with specific characteristics within datasets
+table(restData$zipCode %in% c("21212"))
+table(restData$zipCode %in% c("21212", "21213"))
+restData[restData$zipCode %in% c("21212", "21213"), ]
+
+## Cross tabulations
+data("UCBAdmissions")
+DF = as.data.frame(UCBAdmissions)
+summary(DF)
+xt <- xtabs(Freq ~ Gender + Admit, data = DF)  # makes a 2x2 table (cross tab) of admitted or rejected by gender
+xt
+
+## Flat tables aka cross tab for larger number of variables.
+head(warpbreaks, 10)
+warpbreaks$replicate <- rep(1:9, len = 54)
+xt = xtabs(breaks ~., data = warpbreaks)
+xt
+summary(warpbreaks$breaks)
+ftable(xt) # much easier to look at, but must occur after xtab
+
+
+
 
