@@ -68,28 +68,46 @@ summarize(cran, avg_bytes = mean(size))
 ### Grouping and Chaining with dplyr
 1
 2
+library(dplyr)
+cran <- tbl_df(mydf)
+rm("mydf")
+cran
+?group_by
+by_package <- group_by(cran, package)
+by_package
+summarize(by_package, mean(size))
 
+## did side work with summarize1.R
+submit()
 
+pack_sum
+quantile(pack_sum$count, probs = 0.99)
+top_counts <- filter(pack_sum, count > 679)
+top_counts
+## dplyr only displays 10 rows, so use View() to see everything
+View(top_counts)
+top_counts_sorted <- arrange(top_counts, desc(count))
+View(top_counts_sorted)
+quantile(pack_sum$unique, 0.99)
+top_unique <- filter(pack_sum, unique > 465)
+View(top_unique)
+top_unique_sorted <- arrange(top_unique, desc(unique))
+View(top_unique_sorted)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## Chaining allows you to string together multiple function calls in a way that is compact and reliable
+## Looking at summarize2.R
+submit()
+## Looking at summarize3.R
+submit()
+## Looking at summarize4.R
+submit()
+View(result3)
+## Messed with chain1.R
+submit()
+## Messed with chain2.R
+submit()
+## Messed with chain3.R
+submit()
+## Messed with chain4.R
+submit()
+1
