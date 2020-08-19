@@ -111,3 +111,62 @@ submit()
 ## Messed with chain4.R
 submit()
 1
+
+
+### Tidying Data with tidyr
+1
+3
+library(tidyr)
+3
+students
+?gather
+gather(students, sex, count, -grade)  #grade was already a proper column variable!
+## two variables combined into one column
+students2
+res <- gather(students2, sex_class, count, -grade)
+res
+## split one column into two
+?separate
+separate(data = res, col = sex_class, into = c("sex", "class"))
+
+## Messed with script1.R
+submit()
+
+students3
+
+## Messed with script2.R
+submit()
+
+?spread
+##Messed with script3.R
+submit()
+
+library(readr)
+parse_number("class5")
+
+## Messed with script4.R
+submit()
+
+students4
+
+## Messed with script5.R
+submit()
+
+## Messed with script6.R
+submit()
+
+## Messed with script7.R
+submit()
+
+passed
+failed
+passed <- mutate(passed, status = "passed")
+failed <- mutate(failed, status = "failed")
+bind_rows(passed, failed)
+
+sat
+## Messed with script8.R
+submit()
+## Messed with script9.R
+submit()
+1
